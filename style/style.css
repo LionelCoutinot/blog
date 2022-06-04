@@ -1,0 +1,134 @@
+body 
+{
+	font-family: Helvetica;
+}
+.title
+{   
+  text-shadow: 6px 6px 6px #CE5937;
+  font-style:italic;
+  font-weight:bold; 
+  font-size:60px;
+}
+
+ .uppercase
+ {
+    text-transform: uppercase;
+ }
+
+ .bg-img{
+     background-image: url("../images/bg/cygnus.jpg");
+     background-size: cover;
+     background-position: center;
+     background-color:rgba(123,104,238,0.5);
+ }
+
+ .opacity{
+    background-color: rgba(255,255,255,0.5);
+    height:100%;
+ }
+
+
+
+.textjustify
+{
+    text-align:justify;
+    padding:10px;
+}
+
+.textjustify2
+{
+    text-align:justify;
+   
+}
+
+.italic{
+    font-style: italic;
+}
+
+
+.whitestrong {   
+    color:white;
+    font-size:20px;
+    font-weight:bold;
+}
+
+
+.illustration
+{
+    height:300px;
+    width:300px;
+}
+
+.margin-box
+{
+    margin-bottom:25px;
+}
+
+.error {
+    color:red;
+	font-size:12px;
+}
+
+.valid {
+    border-color: greenyellow;
+}
+
+.notValid {
+    border-color: red;
+}
+
+a{
+    text-decoration:none;
+    color:white;
+}
+
+
+
+.commentback{
+    background-color: lightgray;
+    border:1px solid black;
+    border-radius:10px;
+}
+
+.containerback{
+    border-radius:10px;
+}
+
+.endSession{  
+    padding-top:250px;    
+    padding-bottom:250px;
+    margin-bottom:50px;
+}
+
+/*Fieldset*/
+.text-on-pannel {
+    background: #fff none repeat scroll 0 0;
+    height: auto;
+    margin-left: 20px;
+    padding: 3px 5px;
+    position: absolute;
+    margin-top: -47px;
+  }
+  .panel {
+    /* for text on pannel */
+    margin-top: 27px !important;
+  }
+  .panel-body {
+    padding-top: 30px !important;
+  }
+  
+  .panel-primary{
+  border : 1px solid gold;
+  padding: 0 10px 10px 10px;
+  border-radius: 15px;
+  }
+  /* Fin du Fieldset*/
+  
+  
+ .chart  /* border d'un graphique */
+ {
+	width:518px;
+	border:1px red solid;
+	padding:10px;
+	text-align:justify;
+ }
