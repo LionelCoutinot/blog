@@ -1,2 +1,2 @@
 # blog
-Blog PHP consacré à l'astonomie, mais peut être adapté à n'importe quel sujet.
+Blog PHP consacrédans mon cas à l'asrtonomie, mais peut être évidemment adapté à n'importe quel sujet.
