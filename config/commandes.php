@@ -1,6 +1,6 @@
 <?php 
-require 'database.php';
-error_reporting(E_ERROR | E_WARNING | E_PARSE); 
+require 'database.php'; /* Appel de la connection à la BBD */
+error_reporting(E_ERROR |  E_PARSE); 
 ini_set('display_errors', '1');
 function getContacts() {
     $db = dbconnect();
@@ -74,9 +74,7 @@ function getCategoryIdById($id){
 
 function getCategoryNameById($id){
     $db = dbconnect();
-    $query = $db->prepare("SELECT nom_categorie FROM categories WHERE categories.id='$id'");
-    $query -> bindParam(':id', $id);
-    $query->execute();
+    $query= $db->query("SELECT nom_categorie FROM categories WHERE categories.id='$id'");    
     $categoryName = $query->fetch(PDO::FETCH_OBJ);
     return $categoryName;
 }

@@ -1,13 +1,14 @@
 <?php	
-   	error_reporting(E_ERROR | E_WARNING | E_PARSE); 
+   	error_reporting(E_ERROR |  E_PARSE); /* Formulaire d'ajout d'un nouvel article */
     ini_set('display_errors', '1'); 
-	require 'partials/header.php'; 
-	require 'config/commandes.php';
+	require '../partials/header.php'; 
+	require '../config/commandes.php';
 	$db = dbconnect();  
 	$id=$_SESSION['id'];
     $pseudo=$_SESSION['pseudo'];
 	$results = getContacts();
 	$categories = getCategories();
+	if ($_SESSION['id']) {
   ?>
   <p class="badge rounded-pill bg-white text-dark px-2 py-2"><?php echo"Connexion de : <strong>".$pseudo; ?></p>
  	<div class="row pt-4">	
@@ -81,7 +82,7 @@
                 					<span class="naming"><?php echo "<b>".$result ->titre."</b>"?>
 								</div>	
 								<div class="col-8 pb-3  text-end">			    
-									<a href="config/wipeoff.php?id=<?php echo $result ->id ?>"> <input type="button" class="btn btn-danger me-4"  onclick="return(confirm('Etes-vous sûr de vouloir supprimer cette entrée?'))" value="Delete"></a> </h5>
+									<a href="../config/wipeoff.php?id=<?php echo $result ->id ?>"> <input type="button" class="btn btn-danger me-4"  onclick="return(confirm('Etes-vous sûr de vouloir supprimer cette entrée?'))" value="Delete"></a> </h5>
                 					<a href="editArticle.php?id=<?php echo $result ->id ?>"> <input type="button" class="btn btn-success"   value="Edit"></a> </h5>
 								</div>
 								<hr class="pb-1"/>
@@ -105,7 +106,11 @@
 	   echo"<span style='color:red'>Erreur: Tous les champs doivent être complétés</span>";
 	}
   }
-  
+}
+else {
+	echo "<h2 class='marginMessage text-center'>Vous ne vous êtes pas identifié !</h2>";
+	echo"<script>setTimeout(function() {location.href='../templates/index.php'}, 5000);</script>"; 
+}
 
-require 'partials/footer.php';
+require '../partials/footer.php';
 ?>

@@ -1,8 +1,8 @@
 <?php 
-error_reporting(E_ERROR | E_WARNING | E_PARSE);
+error_reporting(E_ERROR | E_PARSE); /* Index des aticles */
 ini_set('display_errors', '1');
-require 'config/commandes.php';
-require 'partials/header.php'; 
+require '../config/commandes.php';
+require '../partials/header.php'; 
 $results = getContacts();
 
 
@@ -20,7 +20,7 @@ $results = getContacts();
 							<?php echo"<img src='". $result->image."'class='illustration containerback'>" ; ?>
 						</div>	
 						<div class='py-4 px-3 bg-light'>
-							<?php 	echo mb_strimwidth($result->contenu, 0, 200, "..."); ?>
+							<?php 	echo mb_strimwidth($result->contenu, 0, 100, "..."); ?>
 						</div>	
 						<div class="text-center mt-4 mb-3">
 							<a href="single.php?id=<?php echo $result ->id ?>" class="btn btn-primary">Voir l'article</a> </h5>
@@ -36,5 +36,5 @@ $results = getContacts();
 
 
 
-<?php require 'partials/footer.php';
+<?php require '../partials/footer.php';
 ?>

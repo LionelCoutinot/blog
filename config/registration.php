@@ -1,5 +1,5 @@
 <?php
-error_reporting(E_ERROR | E_WARNING | E_PARSE);
+error_reporting(E_ERROR |  E_PARSE); /* Sécurisation des données à enregistrer */
 ini_set('display_errors', '1'); 
 require '../partials/header.php';
 require '../config/commandes.php';

@@ -4,9 +4,9 @@ $(document).ready(function(){
     let globalVerif = function(){
         let validated = $('.valid');
         console.log($('#submit').prop("disabled"));
-        if(validated.length!=2){			
-            $('#submit').prop("disabled","true");			
-        }else {			
+        if(validated.length!=3){
+            $('#submit').prop("disabled","true");
+        }else {
             $('#submit').prop("disabled",null);
         }
         return validated.length;
@@ -26,10 +26,12 @@ $(document).ready(function(){
             globalVerif()
         }   
     }) 
-	
-	$('#content').blur(function(){
-        let inputContent = $('#content').val();
-        if(!inputContent){
+
+})
+
+    $('#content').blur(function(){
+        let message = $('#content').val();
+        if(!message){
             $(this).removeClass("valid");
             $(this).addClass("notValid");
             $(this).next('.error').html("Le champ ne doit pas être vide");
@@ -40,20 +42,31 @@ $(document).ready(function(){
             $(this).next('.error').html("");
             globalVerif()
         }   
-    }) 
+    })
 
-   
-
-    $('#comment_form').submit(function(e){
-        let totalValidated = globalVerif();
-        if(totalValidated != 2){			
-            e.preventDefault();
-			
+    $('#agree').click(function(){
+        let checked = $('#agree').prop("checked");
+        if(!checked){
+            $(this).removeClass("valid");
+            $(this).addClass("notValid");
+            $(this).next('.error').html("La case doit être cochée");
+            globalVerif();
+        }else {
+            $(this).removeClass("notValid");
+            $(this).addClass("valid");
+            $(this).next('.error').html("");
+            globalVerif();
         }
     })
-})
+    
+    $('form').submit(function(e){
+        let totalValidated = globalVerif();
+        if(totalValidated != 3){
+            e.preventDefault();
+        }
+    })
 
-$(document).ready(function(){
+$(document).ready(function(){ /* Vérification d'un deuxième formulaire */
 
     let globalVerif = function(){
         let validated = $('.valid');
@@ -63,10 +76,10 @@ $(document).ready(function(){
         }else {			
             $('#submit').prop("disabled",null);
         }
-        return validated.length;
+        return validated.length; /* Les quatre champs  du formulaire doivent être remplis pour que le formulaire soit envoyé */
     }
 
-    $('#image').blur(function(){
+    $('#image').blur(function(){ /* Vérification du champ " image "*/
         let inputContent = $('#image').val();
         if(!inputContent){
             $(this).removeClass("valid");
@@ -81,8 +94,8 @@ $(document).ready(function(){
         }   
     }) 
 	
-	$('#titre').blur(function(){
-        let inputContent = $('#titre').val();
+	$('#titre').blur(function(){ /* Vérification du champ " titre "*/
+        let inputContent = $('#titre').val(); 
         if(!inputContent){
             $(this).removeClass("valid");
             $(this).addClass("notValid");
@@ -99,7 +112,7 @@ $(document).ready(function(){
   
 
     $('#contenu').blur(function(){
-        let inputContent = $('#contenu').val();
+        let inputContent = $('#contenu').val(); /* Vérification du champ " contenu "*/
         if(!inputContent){
             $(this).removeClass("valid");
             $(this).addClass("notValid");
@@ -113,7 +126,7 @@ $(document).ready(function(){
         }   
     }) 
 	
-    $('#check').click(function(){
+    $('#check').click(function(){ /* Vérification du champ " check "*/
         let inputContent =( $('#check input:checked').length!==0);
         if(!inputContent)
       {
@@ -138,7 +151,7 @@ $(document).ready(function(){
     })*/
 })
 
-$(document).ready(function(){
+$(document).ready(function(){ /*  Vérification d'un troisième formulaire */
 
     let globalVerif = function(){
         let validated = $('.valid');
@@ -148,10 +161,10 @@ $(document).ready(function(){
         }else {			
             $('#submit').prop("disabled",null);
         }
-        return validated.length;
+        return validated.length; /* Les trois champs  du formulaire doivent être remplis pour que le formulaire soit envoyé */
     }
 
-    $('#pseudo2').blur(function(){
+    $('#pseudo2').blur(function(){ /* Vérification du champ " pseudo2 "*/
         let inputContent = $('#pseudo2').val();
         if(!inputContent){
             $(this).removeClass("valid");
@@ -166,7 +179,7 @@ $(document).ready(function(){
         }   
     }) 
 	
-    $('#email').blur(function(){
+    $('#email').blur(function(){ /* Vérification du champ " email  "*/
         let email = $('#email').val();
         let validation = new RegExp(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i);
         let validEmail = validation.test(email);
@@ -191,7 +204,7 @@ $(document).ready(function(){
 
   
 
-    $('#pass').blur(function(){
+    $('#pass').blur(function(){ /* Vérification du champ " pass "*/
         let inputContent = $('#pass').val();
         if(!inputContent){
             $(this).removeClass("valid");

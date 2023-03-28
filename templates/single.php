@@ -1,9 +1,9 @@
 <?php 
-    error_reporting(E_ERROR | E_WARNING | E_PARSE);
-    ini_set('display_errors', '1');
-    $id = $_GET['id'];
-    require 'config/commandes.php';
-    require 'partials/header.php'; 
+    error_reporting(E_ERROR |  E_PARSE); /* Page de visualisation d'un article complet */
+    ini_set('display_errors', '1');    
+    require '../config/commandes.php';
+    require '../partials/header.php'; 
+	$id = $_GET['id'];
     $comments=getCommentairesById($id);
     $result = getContactById($id);
 	$classifications=getCategoriesById($id);
@@ -53,6 +53,11 @@
 									<textarea id="content" name="content" rows="10" cols="50" class="form-control" placeholder="Vos impressions" required></textarea>
                     				<span class="error"></span>                           
                 				</div>
+                				<div  class="margin-box">
+										<input id="agree" type="checkbox" name="agree"  required>
+										<strong>Je permets aux administrateurs de ce blog de conserver mes données</strong>
+										<span class="error"></span>                           
+                				</div>								
 								<div class="d-grid gap-2 margin-box">
 									<input id="submit" type="submit" class="btn btn-primary btn-lg" value="Envoyer"  name="submit_commentaire" disabled>
 								</div>
@@ -83,13 +88,15 @@ if(isset($_GET['id']) AND !empty($_GET['id'])) {
     if(isset($_POST['submit_commentaire'])) {
       	if(isset($_POST['pseudo'],$_POST['content']) AND !empty($_POST['pseudo']) AND !empty($_POST['content'])) {
          	$pseudo = htmlspecialchars($_POST['pseudo']);
-         	$content = htmlspecialchars($_POST['content']);			
-			addCommentaires($id,$pseudo,$content);	        
+         	$content = htmlspecialchars($_POST['content']);	
+			$agree = isset($_POST['agree']);			
+			addCommentaires($id,$pseudo,$content,$agree);	
+			        
    		} else {
          	echo"<span style='color:red'>Erreur: Tous les champs doivent être complétés</span>";
       	}
   	}
 
 }
-require 'partials/footer.php';
+require '../partials/footer.php';
 ?>
