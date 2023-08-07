@@ -1,8 +1,13 @@
 <?php 
-    error_reporting(E_ERROR |  E_PARSE); /* Page de visualisation d'un article complet */
-    ini_set('display_errors', '1');    
-    require '../config/commandes.php';
-    require '../partials/header.php'; 
+	/*****   PAGE DE VISUALISATION D'UN ARTICLE COMPLET  *****/
+
+ 	/* error_reporting(E_ERROR | E_PARSE | E_WARNING);
+	ini_set('display_errors', '1'); */
+
+	require '../partials/header.php';  
+    require '../config/commandes.php';    
+	require '../config/timeRead.php'; /* Calcul du temps de lecture d'un texte */	
+	
 	$id = $_GET['id'];
     $comments=getCommentairesById($id);
     $result = getContactById($id);
@@ -22,15 +27,23 @@
                		<div class="card-text">
 						<div class="row mt-4">	
 				  		 	<div class="col-12  col-md-6  text-start ps-5">
-								<h5>Article de   <b>  <?php echo $result->pseudo."</b> | le " . $publication ?></b></h5>  
+								<h3>Article de   <b>  <?php echo $result->pseudo."</b> | le " . $publication ?></b></h3>  
 							</div>
 							<div class="col-12  col-md-6  text-end pe-5">
-								<h6>
+								<h4>
 									<strong>Catégorie(s)</strong> :
 									<?php foreach($classifications as $classification){ 
 										echo"<span class='badge rounded-pill bg-primary badge-lg text-white mx-2 py-2 px-2'><a href='categories.php?id=". $classification->categorieIdCategorie." '>".$classification->categoriesNom."</a></span>";
 			 						}   ?>
-						 		</h6>
+						 		</h4>
+							</div>
+							<div class="col-12 ps-4   my-5 time-read">
+								<?php
+									$in =   $result->contenu;	/* Le texte à compter */
+									$time = countWord( $in )/300; /* Le comptage du texte */
+									$time =  floor($time); /* arrondissement du temps  de lecture */
+									echo " <strong> Temps de lecture : ".$time. " minute(s) </strong>";										
+								?>
 							</div>
 						</div>
 						<div class="col-12 pb-5">
@@ -43,7 +56,24 @@
 							<hr class='pb-1' />	
 						</div>
 						<div class="col-12 col-md-6 offset-md-3">
-							<h3 class="subtitle text-center mt-4 mb-5">Commentaires :</h3>			
+							<h3 class="text-center mt-4 mb-5">Les Commentaires :</h3>	
+							<div class="mb-4">								
+								<?php foreach($comments as $comment){	
+								 	if ($comment->moderation){						
+										$publication_commentaires=  DATE('d-m-Y', strtotime($comment->publication));?>		
+           								<div class="commentback text-start py-3 mb-4">
+											<div > <?php 				
+												echo "<span class='ps-3'>Commentaire de <strong>" .$comment ->pseudo. "</strong> du " .$publication_commentaires." :</span>";
+											?></div>
+											<div class="italic textjustify"> <?php 
+												echo $comment->content;
+											?></div>								
+										</div>
+                 					<?php }
+								} ?>
+							</div>
+							<hr class="my-5">
+							<h3 class="text-center mt-4 mb-5">Laissez votre commentaire :</h3>	
 							<form action="" id="comment_form" name="form" method="post" enctype="multipart/form-data">
                 				<div  class="margin-box">
 			        				<input id="pseudo" name="pseudo" type="text" class="form-control" placeholder="Pseudo" required>
@@ -54,27 +84,15 @@
                     				<span class="error"></span>                           
                 				</div>
                 				<div  class="margin-box">
-										<input id="agree" type="checkbox" name="agree"  required>
+										<input id="agree" type="checkbox" name="agree"  required>										
 										<strong>Je permets aux administrateurs de ce blog de conserver mes données</strong>
-										<span class="error"></span>                           
+										<div id="warning" class="error"></div>                    
                 				</div>								
 								<div class="d-grid gap-2 margin-box">
 									<input id="submit" type="submit" class="btn btn-primary btn-lg" value="Envoyer"  name="submit_commentaire" disabled>
 								</div>
             				</form>
-							<div class="mb-4">	
-								<?php foreach($comments as $comment){
-									$publication_commentaires=  DATE('d-m-Y', strtotime($comment->publication));?>		
-           							<div class="commentback text-start py-3 mb-4">
-										<div > <?php 				
-											echo "<span class='ps-3'>Commentaire de <strong>" .$comment ->pseudo. "</strong> du " .$publication_commentaires." :</span>";
-										?></div>
-										<div class="italic textjustify"> <?php 
-											echo $comment ->content;
-										?></div>
-									</div>
-                 				<?php }?>
-							</div>
+
 						</div>		
 					</div>
 				</div>
@@ -87,9 +105,15 @@
 if(isset($_GET['id']) AND !empty($_GET['id'])) {
     if(isset($_POST['submit_commentaire'])) {
       	if(isset($_POST['pseudo'],$_POST['content']) AND !empty($_POST['pseudo']) AND !empty($_POST['content'])) {
-         	$pseudo = htmlspecialchars($_POST['pseudo']);
-         	$content = htmlspecialchars($_POST['content']);	
-			$agree = isset($_POST['agree']);			
+			function valid_donnees($donnees){
+				$donnees = trim($donnees);
+				$donnees = stripslashes($donnees);
+				$donnees = htmlspecialchars($donnees);
+				return $donnees;
+			}
+			$pseudo=valid_donnees($_POST['pseudo']);
+			$content=valid_donnees($_POST['content']);
+			$agree = isset($_POST['agree']);	
 			addCommentaires($id,$pseudo,$content,$agree);	
 			        
    		} else {

@@ -49,12 +49,14 @@ $(document).ready(function(){
         if(!checked){
             $(this).removeClass("valid");
             $(this).addClass("notValid");
-            $(this).next('.error').html("La case doit être cochée");
+           /* $(this).next('.error').html("La case doit être cochée");*/
+            document.querySelector('#warning').innerHTML = "La case doit être cochée";
             globalVerif();
         }else {
             $(this).removeClass("notValid");
             $(this).addClass("valid");
-            $(this).next('.error').html("");
+            /*$(this).next('.error').html("");*/
+            document.querySelector('#warning').innerHTML = "";
             globalVerif();
         }
     })
@@ -209,12 +211,14 @@ $(document).ready(function(){ /*  Vérification d'un troisième formulaire */
         if(!inputContent){
             $(this).removeClass("valid");
             $(this).addClass("notValid");
-            $(this).next('.error').html("Le champ ne doit pas être vide");
+           /* $(this).next('.error').html("Le champ ne doit pas être vide");*/
+           document.querySelector('#warn').innerHTML = "Le champ ne doit pas être vide";
             globalVerif()
         } else {
             $(this).removeClass("notValid");
             $(this).addClass("valid");
-            $(this).next('.error').html("");
+           /* $(this).next('.error').html("");*/
+           document.querySelector('#warn').innerHTML = "";
             globalVerif()
         }   
     }) 

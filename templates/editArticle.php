@@ -1,8 +1,11 @@
 <?php   
-error_reporting(E_ERROR | E_PARSE); /* Formulaire d'édition d'un article */
-ini_set('display_errors', '1');
-require '../config/commandes.php';
+/*****  FORMULAIRE D'ÉDITION D'UN ARTICLE *****/
+ /* error_reporting(E_ERROR | E_PARSE | E_WARNING);
+ini_set('display_errors', '1'); */
+
 require '../partials/header.php';
+require '../config/commandes.php';
+
 $id = $_GET['id'];
 $comments=getCommentairesById($id);
 $result = getContactById($id);
@@ -22,7 +25,7 @@ if ($_SESSION['id'])
         </div> 
     </div>
 	<div class="row py-5">
-		<div class="col-12 Pb-4">
+		<div class="col-12 pb-4">
 			<div class="card shadow-sm containerback">
             	<div class="card-header">
 					<h2 class="card-title text-center bg-light uppercase pt-2">Article à modifier</h2>
@@ -76,14 +79,36 @@ if ($_SESSION['id'])
 									<div class="d-grid gap-2">
                     					<input type="submit"  id="submit" class="btn btn-primary btn-lg"   name="submit_article" value="Envoyer" disabled>
                 					</div>
-            					</div>
+            					</div>							
 							</form>
+						</div>
+						<hr class="pb-1" />
+						<div class="row  px-5">								
+							<div class="col-12 col-md-8  offset-md-2  text-center mb-5">
+								<h3 class="mt-4">Les Commentaires :</h5>
+							</div>														
+							<?php	foreach($comments as $comment){?>
+								<div class="col-8 offset-2 mb-5">
+									<div class="row">	
+										<div class="col-8 my-4">
+											<?php echo  "<b>".$comment->pseudo."</b><i> : ".$comment ->content."</i><br />";
+											?>
+										</div>
+										<div class="col-4 pb-3 my-4 text-end">
+											<?php if (!$comment->moderation){	?>
+												<a href="../config/moderation.php?id=<?php echo $comment->id ?>"> <input type="button" class="btn btn-success"   value="En attente"></a> </h5>		    
+											<?php } ?>
+											<a href="../config/wipeoffComment.php?id=<?php echo $comment->id ?>"> <input type="button" class="btn btn-danger me-4"  onclick="return(confirm('Etes-vous sûr de vouloir supprimer ce commentaire?'))" value="Delete"></a> </h5>
+										</div>
+									</div>
+								</div>				
+							<?php }?>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-		</div>
+	</div>
 
 
 		<?php 
@@ -103,10 +128,15 @@ if ($_SESSION['id'])
   
 			}
 }
-	else {
-		echo "<h2 class='marginMessage text-center'>Vous ne vous êtes pas identifié !</h2>";
-		echo"<script>setTimeout(function() {location.href='../templates/index.php'}, 5000);</script>"; 
-	}
-
+else {	?>
+	<div class="bg-white mb-5 containerback">	
+		<div class="row">
+			<div class="col-12 text-center answer">	
+				<h2>Vous ne vous êtes pas identifié !</h2>
+				<?php echo"<script>setTimeout(function() {location.href='../templates/index.php'}, 5000);</script>";?>    
+			</div>
+		</div>
+	</div>
+<?php 	}
 require '../partials/footer.php';
 ?>

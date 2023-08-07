@@ -1,9 +1,12 @@
 <?php 
-     error_reporting(E_ERROR | E_PARSE); /* Page de visualisation d'un article complet */
-     ini_set('display_errors', '1');
+   /*****  PAGE DE VISUALISATION PAR CATEGORIE  *****/
+
+    /* error_reporting(E_ERROR | E_PARSE | E_WARNING);
+    ini_set('display_errors', '1'); */
+    
      $id = $_GET['id'];
-     require '../config/commandes.php';
      require '../partials/header.php'; 
+     require '../config/commandes.php';    
     $comments=getCommentairesById($id);
     $posts = getPostsByCategoryId($id);
     $result =  getContactById($id);

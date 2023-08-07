@@ -1,8 +1,12 @@
 <?php	
-   	error_reporting(E_ERROR |  E_PARSE); /* Formulaire d'ajout d'un nouvel article */
-    ini_set('display_errors', '1'); 
+  	/*****   FORMULAIRE D'AJOUT D'UN NOUVEL ARTICLE  *****/
+
+ 	/* error_reporting(E_ERROR | E_PARSE | E_WARNING);
+	ini_set('display_errors', '1'); */
+
 	require '../partials/header.php'; 
 	require '../config/commandes.php';
+	
 	$db = dbconnect();  
 	$id=$_SESSION['id'];
     $pseudo=$_SESSION['pseudo'];
@@ -108,8 +112,16 @@
   }
 }
 else {
-	echo "<h2 class='marginMessage text-center'>Vous ne vous êtes pas identifié !</h2>";
-	echo"<script>setTimeout(function() {location.href='../templates/index.php'}, 5000);</script>"; 
+?>
+<div class="bg-white mb-5 containerback">	
+	<div class="row">
+		<div class="col-12 text-center answer">	
+			<h2>Vous ne vous êtes pas identifié !</h2>
+			<?php echo"<script>setTimeout(function() {location.href='../templates/index.php'}, 5000);</script>";?>    
+		</div>
+	</div>
+</div>
+<?php	
 }
 
 require '../partials/footer.php';

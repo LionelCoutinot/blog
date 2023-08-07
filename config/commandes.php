@@ -1,13 +1,14 @@
 <?php 
-require 'database.php'; /* Appel de la connection à la BBD */
-error_reporting(E_ERROR |  E_PARSE); 
-ini_set('display_errors', '1');
+/*****  APPEL DE LA CONNECTION À LA BBD  *****/
+ /* error_reporting(E_ERROR | E_PARSE | E_WARNING);
+ini_set('display_errors', '1'); */
+require 'database.php'; 
+
 function getContacts() {
     $db = dbconnect();
     $sth = $db->query('SELECT * FROM articles ORDER BY id DESC');
     $results = $sth->fetchAll(PDO::FETCH_OBJ);
-    return $results;
-}
+    return $results;}
 
 
 
@@ -31,7 +32,7 @@ function getPostById($id){
 
 function getCommentairesById($id){
     $db = dbconnect();
-    $commentaires = $db->prepare("SELECT  commentaires.pseudo, commentaires.content, commentaires.publication  FROM commentaires INNER  JOIN articles ON  commentaires.article_id=articles.id WHERE commentaires.article_id=:id");
+    $commentaires = $db->prepare("SELECT commentaires.id, commentaires.pseudo, commentaires.content, commentaires.publication, commentaires.article_id, commentaires.moderation  FROM commentaires INNER  JOIN articles ON  commentaires.article_id=articles.id WHERE commentaires.article_id=:id");
     $commentaires -> bindParam(':id', $id);
     $commentaires->execute();
 	$comments = $commentaires->fetchAll(PDO::FETCH_OBJ);	
@@ -45,6 +46,7 @@ function getCategories(){
     $resultats = $categories->fetchAll(PDO::FETCH_OBJ);
     return $resultats;
 }
+
 function getCategoriesById2($id){
     $db = dbconnect();	    
     $categories = $db->prepare("SELECT categorie_articles.id as categorieId, 	categorie_articles.id_article as categorieIdArticle,  	categorie_articles.id_categorie as categorieIdCategorie, categories.id as categoriesId, categories.nom_categorie as categoriesNom FROM categorie_articles INNER JOIN categories 
@@ -117,16 +119,18 @@ function getIdentifiers($pseudo,$email,$pass){
 }
 
    
-function addCommentaires($id,$pseudo,$content){
+function addCommentaires($id,$pseudo,$content,$agree){
     $db = dbconnect();
     try {
-        $req = $db->prepare("INSERT INTO commentaires (pseudo, content, article_id) VALUES (:pseudo,:content,:article_id)");
+        $req = $db->prepare("INSERT INTO commentaires (pseudo,content,article_id,agree) VALUES (:pseudo,:content,:article_id,:agree)");
         $req->bindParam(':pseudo',$pseudo);
         $req->bindParam(':content',$content);	       
         $req->bindParam(':article_id',$id);
+        $req->bindParam(':agree',$agree);       
         $req->execute();
-        echo'<script type="text/javascript">alert("Commentaire posté !")</script>';      
-        echo"<script>location.href='index.php';</script>";
+        echo'<script type="text/javascript">alert("Votre commentaire est attente de modération !")</script>'; 
+         echo"<script>location.href='';</script>";
+        
     }
     catch(PDOException $e){
         echo 'Erreur :  '.$e->getMessage();
@@ -164,6 +168,7 @@ function addArticle($id,$image,$titre,$contenu){
 }
 
 
+
 function updateArticle($id,$id2,$image,$titre,$contenu){
     try {
         $db = dbconnect();	
@@ -194,8 +199,12 @@ function updateArticle($id,$id2,$image,$titre,$contenu){
     catch(PDOException $e){
 	    echo 'Erreur : '.$e->getMessage();
     }
-
 }
+
+
+
+
+
 
 
 
