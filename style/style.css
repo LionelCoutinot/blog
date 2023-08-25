@@ -30,7 +30,7 @@ body
  .opacity{
     background-color: rgba(255,255,255,0.5);
     padding-top:5%;
-    padding-bottom:12%;
+    padding-bottom:5%;
  }
 
 
@@ -69,11 +69,10 @@ body
     margin-bottom:25px;
 }
 
-.marginMessage{
+/*.marginMessage{
     margin-top: 250px;
-    margin-bottom: 400px;
-
-}
+    margin-bottom: 300px;   
+}*/
 
 .error {
     color:red;
@@ -109,8 +108,9 @@ a{
 }
 
 .answer{       
-    padding-top:120px;    
-    padding-bottom:120px;    
+    padding-top:200px;    
+    padding-bottom:60px;    
+    margin-bottom:10%;
 }
 
 /*Fieldset*/
@@ -219,7 +219,7 @@ footer {
 /*fin de  configuration du footer en bas de la page  */
 
 /* Centrage du bloc de pagination */
-.pagination{   
+.paginationCenter{   
     position: absolute; /* postulat de départ */
     left: 50%; /* à 50% du parent référent */
     transform: translate(-50%); /* décalage de 50% de sa propre taille */

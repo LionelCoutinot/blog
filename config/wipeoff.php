@@ -31,7 +31,7 @@ if ($_SESSION['id'])
 <?php
 }
 else {
-	echo "<h2 class='marginMessage text-center'>Vous ne vous êtes pas identifié !</h2>";
+	echo "<h2 class='answer text-center'>Vous ne vous êtes pas identifié !</h2>";
 	echo"<script>setTimeout(function() {location.href='../templates/index.php'}, 5000);</script>"; 
 }
 require '../partials/footer.php';

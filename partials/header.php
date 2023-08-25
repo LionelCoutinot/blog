@@ -50,7 +50,7 @@ session_start();
         </div>
     </header>
     <div class="opacity">
-        <div class="container mt-5">
+        <div class="container">
 			<main>
       
             

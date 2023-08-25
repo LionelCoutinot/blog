@@ -16,7 +16,7 @@
     $publication=  DATE('d-m-Y', strtotime($result->publication));
 ?>
 
-<div class="bg-white mb-5 containerback">	
+<div class="bg-white  containerback">	
 	<div class="row">
 		<div class="col-12">	
 			<div class="card shadow-sm containerback">

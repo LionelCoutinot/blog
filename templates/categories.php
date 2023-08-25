@@ -19,9 +19,9 @@
             <h2 class="uppercase text-white pt-2">Catégorie : <?php echo  $category->nom_categorie; ?></h2>
         </div> 
     </div>  
-    <div class="row py-5">          
+    <div class="row mt-5">          
         <?php foreach($posts as $post){ ?>
-            <div class="col-12 col-md-8  offset-md-2 pb-4">
+            <div class="col-12 col-md-8  offset-md-2 mb-5">
                 <div class="card shadow-sm containerback">
                     <div class="card-header">							
                         <h4 class="card-title text-center bg-light uppercase pt-2"> <?php echo $post->titre ?></h2> 
